@@ -1,9 +1,3 @@
-"""Typing Test System.
-
-Tests how quickly and accurately a user can type a randomly generated
-sequence of characters.
-"""
-
 import random
 import string
 import time
@@ -14,17 +8,14 @@ CHARACTER_POOL = string.ascii_letters + string.digits
 
 
 def get_name(prompt):
-    """Ask for a name until a non-blank value made of letters is entered."""
     while True:
         name = input(prompt).strip()
-        # Allow spaces, hyphens and apostrophes, e.g. "Mary-Jane" or "O'Neil".
         if name and name.replace(" ", "").replace("-", "").replace("'", "").isalpha():
             return name
         print("Invalid name. Please use letters only (spaces, - and ' allowed).")
 
 
 def get_character_count():
-    """Ask for the number of characters until a whole number in range is entered."""
     while True:
         entry = input(f"Number of characters to generate ({MIN_CHARS}-{MAX_CHARS}): ").strip()
         if not entry.isdigit():
@@ -37,17 +28,14 @@ def get_character_count():
 
 
 def generate_characters(count):
-    """Return a random string of `count` letters and digits."""
     return "".join(random.choice(CHARACTER_POOL) for _ in range(count))
 
 
 def count_correct(generated, entered):
-    """Count characters typed correctly in the same position as generated."""
     return sum(1 for g, e in zip(generated, entered) if g == e)
 
 
 def calculate_accuracy(correct, total):
-    """Accuracy % = (correct / total) * 100, rounded to 2 decimal places."""
     if total == 0:
         return 0.0
     return round(correct / total * 100, 2)
